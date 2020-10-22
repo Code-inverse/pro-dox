@@ -6,14 +6,26 @@ import {withStyles} from '@material-ui/core/styles';
 import styles from './styles';
 
 class EditorComponent extends Component {
+    //component state
     state = {
         body: '',
         title: '',
         id: ''
     };
 
+    //updating title handled in this function
+    updateTitle = async(val) => {
+        await this.setState({
+            title: val
+        });
+        this.update();
+    };
+
+    //updating body handled in this function
     updateBody = async (val) => {
-        await this.setState({body: val});
+        await this.setState({
+            body: val
+        });
         this.update();
     };
     //debouncing here to update DB at a "5 seconds" delay after user stops typing
@@ -51,6 +63,14 @@ class EditorComponent extends Component {
 
         return (
             <div className={classes.editorContainer}>
+                <BorderColorIcon className={classes.editIcon}></BorderColorIcon>
+                <input
+                    className={classes.titleInput}
+                    placeholder='Document Title...'
+                    value={this.state.title? this.state.title :''}
+                    onChange={(event)=> this.updateTitle(event.target.value) }
+                >
+                </input>
                 <ReactQuill
                     value={this.state.body}
                     onChange={this.updateBody}>

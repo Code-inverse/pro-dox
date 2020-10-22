@@ -14,7 +14,7 @@ const styles = theme => ({
         padding: '5px',
         fontSize: '24px',
         width: 'calc(100% - 300px)',
-        backgroundColor: '#29487d',
+        backgroundColor: '#f9a825',
         color: 'white',
         paddingLeft: '50px'
     },
@@ -27,8 +27,9 @@ const styles = theme => ({
         height: '10'
     },
     editorContainer: {
-        height: '100%',
-        boxSizing: 'border-box'
+        height: '92vh',
+        boxSizing: 'border-box',
+        margin:'0',
     }
 });
 
