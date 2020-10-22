@@ -85,8 +85,8 @@ class SideNavbarComponent extends Component {
     newNote = () => {
         console.log(this.state);
     };
-    selectDoc = () => {
-        console.log('select doc');
+    selectDoc = (doc, index) => {
+        this.props.selectDoc(doc, index);
     };
     deleteDoc = () => {
         console.log('delete doc');

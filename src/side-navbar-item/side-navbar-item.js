@@ -9,7 +9,7 @@ import {removeHTMLTags} from '../helpers';
 class SideNavbarItemComponent extends Component {
     render() {
 
-        const {_index, _doc, selectedDocIndex, selectDoc, deleteDoc, classes} = this.props;
+        const {_index, _doc, selectedDocIndex, classes} = this.props;
 
         return (
             <div key={_index}>
@@ -18,10 +18,11 @@ class SideNavbarItemComponent extends Component {
                     selected={selectedDocIndex === _index}
                     alignItems='flex-start'
                 >
-                    <div className={classes.textSection} onClick={this.selectDocHandler(_doc, _index)}>
+                    <div className={classes.textSection}
+                         onClick={()=>this.selectDocHandler(_doc, _index)}>
                         <ListItemText
                             primary={_doc.title}
-                            secondary={removeHTMLTags(_doc.body.substring(0, 35))+ '...'}
+                            secondary={removeHTMLTags(_doc.body.substring(0, 35)) + '...'}
                         />
                     </div>
                     <DeleteIcon
@@ -31,11 +32,14 @@ class SideNavbarItemComponent extends Component {
             </div>
         );
     }
-    selectDocHandler=(doc, index) =>{
+
+    selectDocHandler = (doc, index) => {
         this.props.selectDoc(doc, index);
     };
-    deleteDocHandler=(doc, index) =>{
-        
+    deleteDocHandler = (doc) => {
+        if (window.confirm(`Are you sure to delete: ${doc.title}`)){
+            this.props.deleteDoc(doc);
+        }
     };
 }
 

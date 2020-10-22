@@ -7,25 +7,28 @@ import SideNavbarComponent from "./side-navbar/side-navbar";
 const firebase = require('firebase');
 
 class App extends React.Component {
-
-        state = {
-            selectedDocIndex: null,
-            selectedDoc: null,
-            documents: null
-        };
-
-    render() {
-        return (
-            <div className="app-container">
-                <SideNavbarComponent
-                    selectedDocIndex={this.state.selectedDocIndex}
-                    documents={this.state.documents}
-                />
-                <EditorComponent/>
-            </div>
-        );
+    // app wide state
+    state = {
+        selectedDocIndex: null,
+        selectedDoc: null,
+        documents: null
+    };
+    //function to handle document selection in SideNavbarComponent
+    selectDocHandler = (doc, index) => {
+        this.setState({
+            selectedDoc: doc,
+            selectedDocIndex: index
+        });
     }
+    //function to handle document deletion in SideNavbarComponent
+    deleteDocHandler = () => {
+    };
 
+    //function to handle new document creation in SideNavbarComponent
+    newDocHandler = () => {
+    };
+
+    //mapping data from DB to notes constant
     componentDidMount = () => {
         firebase
             .firestore()
@@ -41,6 +44,21 @@ class App extends React.Component {
             });
     };
 
+    //main render method rendering all underlying components
+    render() {
+        return (
+            <div className="app-container">
+                <SideNavbarComponent
+                    selectedDocIndex={this.state.selectedDocIndex}
+                    documents={this.state.documents}
+                    selectDoc={this.selectDocHandler}
+                    deleteDoc={this.deleteDocHandler}
+                    newDoc={this.newDocHandler}
+                />
+                <EditorComponent/>
+            </div>
+        );
+    }
 }
 
 export default App;
