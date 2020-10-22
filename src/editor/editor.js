@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactQuill,{Quill} from 'react-quill';
+import ReactQuill from 'react-quill';
 import debounce from '../helpers';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import {withStyles} from '@material-ui/core/styles';
@@ -32,8 +32,6 @@ class EditorComponent extends Component {
     };
     //debouncing here to update DB at a "5 seconds" delay after user stops typing
     update = debounce(() => {
-        //TODO: Come back later here
-        console.log('updating DB');
         this.props.docUpdate(this.state.id,
             {
                 title: this.state.title,

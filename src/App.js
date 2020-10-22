@@ -71,7 +71,6 @@ class App extends React.Component {
 
     //updating document to DB here
     docUpdateHandler = (id, docObject) => {
-        console.log(id, docObject);
         firebase
             .firestore()
             .collection('docs')
@@ -94,7 +93,6 @@ class App extends React.Component {
                     data['id'] = _doc.id;
                     return data;
                 });
-                console.log(notes);
                 this.setState({documents: notes});
             });
     };
