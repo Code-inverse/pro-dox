@@ -7,24 +7,29 @@ import styles from './styles';
 
 class EditorComponent extends Component {
     state = {
-        text: '',
+        body: '',
         title: '',
         id: ''
     };
 
     updateBody = async (val) => {
-        await this.setState({text: val});
+        await this.setState({body: val});
         this.update();
     };
     //debouncing here to update DB at a "5 seconds" delay after user stops typing
     update = debounce(() => {
         //TODO: Come back later here
         console.log('updating DB');
+        this.props.docUpdate(this.state.id,
+            {
+                title: this.state.title,
+                body: this.state.body
+            });
     }, 5000);
 
     componentDidMount = () => {
         this.setState({
-            text: this.props.selectedDoc.body,
+            body: this.props.selectedDoc.body,
             title: this.props.selectedDoc.title,
             id: this.props.selectedDoc.id
         });
@@ -33,7 +38,7 @@ class EditorComponent extends Component {
     componentDidUpdate =() => {
         if (this.props.selectedDoc.id !== this.state.id){
             this.setState({
-                text: this.props.selectedDoc.body,
+                body: this.props.selectedDoc.body,
                 title: this.props.selectedDoc.title,
                 id: this.props.selectedDoc.id
             });
@@ -47,7 +52,7 @@ class EditorComponent extends Component {
         return (
             <div className={classes.editorContainer}>
                 <ReactQuill
-                    value={this.state.text}
+                    value={this.state.body}
                     onChange={this.updateBody}>
 
                 </ReactQuill>

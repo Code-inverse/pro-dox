@@ -26,6 +26,20 @@ class App extends React.Component {
 
     //function to handle new document creation in SideNavbarComponent
     newDocHandler = () => {
+
+    };
+
+    docUpdateHandler = (id, docObject) => {
+        console.log(id, docObject);
+        firebase
+            .firestore()
+            .collection('docs')
+            .doc(id)
+            .update({
+                title: docObject.title,
+                body: docObject.body,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
     };
 
     //mapping data from DB to notes constant
@@ -61,6 +75,7 @@ class App extends React.Component {
                             selectedDoc={this.state.selectedDoc}
                             selectedDocIndex={this.state.selectedDocIndex}
                             documents={this.state.documents}
+                            docUpdate={this.docUpdateHandler}
                         />
                         : null
                 }
