@@ -1,20 +1,26 @@
 import React from 'react';
 import './App.css';
 
+import EditorComponent from "./editor/editor";
+import SideNavbarComponent from "./side-navbar/side-navbar";
+
 const firebase = require('firebase');
 
 class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
+
+        state = {
             selectedDocIndex: null,
             selectedDoc: null,
             documents: null
         };
-    }
 
     render() {
-        return (<div>Hello World</div>);
+        return (
+            <div className="app-container">
+                <SideNavbarComponent/>
+                <EditorComponent/>
+            </div>
+        );
     }
 
     componentDidMount = () => {
