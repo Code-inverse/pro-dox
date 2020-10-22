@@ -4,6 +4,7 @@ import styles from './styles';
 import List from '@material-ui/core/List';
 import {Divider, Button} from '@material-ui/core';
 import SideNavbarItemComponent from '../side-navbar-item/side-navbar-item';
+import Spinner from '../components/UI/Spinner/Spinner';
 
 class SideNavbarComponent extends Component {
     state = {
@@ -23,6 +24,7 @@ class SideNavbarComponent extends Component {
     updateTitleHandler = (txt) => {
         this.setState({title: txt});
     };
+    //new Document creation passed to App.js through props
     newDoc = () => {
         this.props.newDoc(this.state.title);
         this.setState({
@@ -30,9 +32,13 @@ class SideNavbarComponent extends Component {
             addingDoc: false
         });
     };
+
+    //document selection passed to App.js through props
     selectDoc = (doc, index) => {
         this.props.selectDoc(doc, index);
     };
+
+    //deleting document passed to App.js through props
     deleteDoc = (doc) => {
         this.props.deleteDoc(doc);
     };
@@ -90,7 +96,7 @@ class SideNavbarComponent extends Component {
                 </div>
             );
         }else{
-            return (<div>Loading..</div>);
+            return (<div><Spinner/></div>);
         }
     };
 }
