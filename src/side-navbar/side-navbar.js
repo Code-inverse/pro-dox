@@ -14,7 +14,8 @@ class SideNavbarComponent extends Component {
     render() {
 
         const {documents, classes, selectedDocIndex} = this.props;
-
+        //if documents is not null then return the below component else return empty div
+        //using map function inside therefore this if statement
         if (documents){
             return (
                 <div className={classes.sidebarContainer}>
@@ -31,7 +32,7 @@ class SideNavbarComponent extends Component {
                                     type='text'
                                     className={classes.newNoteInput}
                                     placeholder='Document title'
-                                    onKeyUp={(event)=>this.updateTitle(event.target.value)}
+                                    onKeyUp={(event)=>this.updateTitleHandler(event.target.value)}
                                 >
                                 </input>
                                 <Button
@@ -63,9 +64,11 @@ class SideNavbarComponent extends Component {
                 </div>
             );
         }else{
-            return (<div></div>);
+            return (<div>Loading..</div>);
         }
     }
+
+    //func to handle new note button click
     newNoteBtnClickHandler =() => {
         console.log('newNoteButton clicked');
         this.setState({
@@ -73,7 +76,9 @@ class SideNavbarComponent extends Component {
             addingNote: !this.state.addingNote
         });
     };
-    updateTitle = (txt) => {
+
+    // function to handle title , keystroke handling
+    updateTitleHandler = (txt) => {
         console.log('updating Title', txt);
         this.setState({title: txt});
     };
