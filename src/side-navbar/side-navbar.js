@@ -7,8 +7,34 @@ import SideNavbarItemComponent from '../side-navbar-item/side-navbar-item';
 
 class SideNavbarComponent extends Component {
     state = {
-        addingNote: false,
+        addingDoc: false,
         title: null
+    };
+
+    //func to handle new note button click
+    newNoteBtnClickHandler =() => {
+        this.setState({
+            title: null,
+            addingDoc: !this.state.addingDoc
+        });
+    };
+
+    // function to handle title update
+    updateTitleHandler = (txt) => {
+        this.setState({title: txt});
+    };
+    newDoc = () => {
+        this.props.newDoc(this.state.title);
+        this.setState({
+            title: null,
+            addingDoc: false
+        });
+    };
+    selectDoc = (doc, index) => {
+        this.props.selectDoc(doc, index);
+    };
+    deleteDoc = (doc) => {
+        this.props.deleteDoc(doc);
     };
 
     render() {
@@ -22,11 +48,11 @@ class SideNavbarComponent extends Component {
                     <Button onClick={this.newNoteBtnClickHandler}
                             className={classes.newNoteBtn}>
                         {
-                            this.state.addingNote ? 'Cancel' : 'New document'
+                            this.state.addingDoc ? 'Cancel' : 'New document'
                         }
                     </Button>
                     {
-                        this.state.addingNote ?
+                        this.state.addingDoc ?
                             <div>
                                 <input
                                     type='text'
@@ -37,7 +63,7 @@ class SideNavbarComponent extends Component {
                                 </input>
                                 <Button
                                     className={classes.newNoteSubmitBtn}
-                                    onClick={this.newNote}>
+                                    onClick={this.newDoc}>
                                     Submit Note
                                 </Button>
                             </div>
@@ -66,30 +92,6 @@ class SideNavbarComponent extends Component {
         }else{
             return (<div>Loading..</div>);
         }
-    }
-
-    //func to handle new note button click
-    newNoteBtnClickHandler =() => {
-        console.log('newNoteButton clicked');
-        this.setState({
-            title: null,
-            addingNote: !this.state.addingNote
-        });
-    };
-
-    // function to handle title , keystroke handling
-    updateTitleHandler = (txt) => {
-        console.log('updating Title', txt);
-        this.setState({title: txt});
-    };
-    newNote = () => {
-        console.log(this.state);
-    };
-    selectDoc = (doc, index) => {
-        this.props.selectDoc(doc, index);
-    };
-    deleteDoc = () => {
-        console.log('delete doc');
     };
 }
 

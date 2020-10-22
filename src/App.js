@@ -21,14 +21,55 @@ class App extends React.Component {
         });
     }
     //function to handle document deletion in SideNavbarComponent
-    deleteDocHandler = () => {
+    deleteDocHandler = async (document) => {
+        const docIndex = this.state.documents.indexOf(document);
+        await this.setState({
+            documents: this.state.documents.filter(_doc => _doc !== document)
+        });
+        //if the document that is selected is to be deleted then deselecting it
+        if (this.state.selectedDocIndex === docIndex){
+            this.setState({
+                selectedDocIndex: null,
+                selectedDoc: null
+            });
+        } else {
+            //if more than one document then select the document at (index - 1) else set null
+            this.state.documents.length > 1 ?
+                this.selectDocHandler(this.state.documents[this.state.selectedDocIndex - 1], this.state.selectedDocIndex - 1)
+                : this.setState({
+                    selectedDocIndex: null,
+                    selectedDoc: null
+                });
+        }
+        firebase.firestore().collection('docs').doc(document.id).delete();
     };
 
     //function to handle new document creation in SideNavbarComponent
-    newDocHandler = () => {
-
+    newDocHandler = async(title) => {
+        const newDoc = {
+            title: title,
+            body: ''
+        };
+        const newDocFromDB = await firebase
+            .firestore()
+            .collection('docs')
+            .add({
+                title: newDoc.title,
+                body: newDoc.body,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        const newId = newDocFromDB.id;
+        await this.setState({
+            documents: [...this.state.documents, newDoc]
+            });
+        const newDocIndex = this.state.documents.indexOf(this.state.documents.filter(_doc => _doc.id === newId)[0]);
+        this.setState({
+            selectedDoc: this.state.documents[newDocIndex],
+            selectedDocIndex: newDocIndex
+        });
     };
 
+    //updating document to DB here
     docUpdateHandler = (id, docObject) => {
         console.log(id, docObject);
         firebase

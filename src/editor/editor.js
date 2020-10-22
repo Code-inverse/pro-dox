@@ -47,7 +47,7 @@ class EditorComponent extends Component {
 
     render() {
 
-        const {classes, documents, selectedDoc, selectedDocIndex} = this.props;
+        const {classes} = this.props;
 
         return (
             <div className={classes.editorContainer}>
