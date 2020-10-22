@@ -14,7 +14,7 @@ const styles = theme => ({
         padding: '5px',
         fontSize: '24px',
         width: 'calc(100% - 300px)',
-        backgroundColor: '#297d70',
+        backgroundColor: '#29487d',
         color: 'white',
         paddingLeft: '50px'
     },

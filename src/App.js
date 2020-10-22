@@ -17,7 +17,10 @@ class App extends React.Component {
     render() {
         return (
             <div className="app-container">
-                <SideNavbarComponent/>
+                <SideNavbarComponent
+                    selectedDocIndex={this.state.selectedDocIndex}
+                    documents={this.state.documents}
+                />
                 <EditorComponent/>
             </div>
         );

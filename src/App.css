@@ -29,7 +29,7 @@ html, body {
   cursor: text;
 }
 .MuiListItem-root.Mui-selected {
-  background-color: #d4e8e5 !important;
+  background-color: #d4d8e8 !important;
 }
 .no-note-selected {
   font-size: 48px;
