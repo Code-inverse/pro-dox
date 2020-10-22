@@ -5,8 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const firebase = require('firebase');
+require('firebase/firestore');
 
-var firebaseConfig = {
+// Initialize Firebase
+firebase.initializeApp({
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
     databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -15,16 +17,14 @@ var firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID,
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+});
 firebase.analytics();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
