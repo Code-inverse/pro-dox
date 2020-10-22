@@ -14,7 +14,7 @@ class EditorComponent extends Component {
     };
 
     //updating title handled in this function
-    updateTitle = async(val) => {
+    updateTitle = async (val) => {
         await this.setState({
             title: val
         });
@@ -47,8 +47,8 @@ class EditorComponent extends Component {
         });
     }
 
-    componentDidUpdate =() => {
-        if (this.props.selectedDoc.id !== this.state.id){
+    componentDidUpdate = () => {
+        if (this.props.selectedDoc.id !== this.state.id) {
             this.setState({
                 body: this.props.selectedDoc.body,
                 title: this.props.selectedDoc.title,
@@ -67,18 +67,43 @@ class EditorComponent extends Component {
                 <input
                     className={classes.titleInput}
                     placeholder='Document Title...'
-                    value={this.state.title? this.state.title :''}
-                    onChange={(event)=> this.updateTitle(event.target.value) }
+                    value={this.state.title ? this.state.title : ''}
+                    onChange={(event) => this.updateTitle(event.target.value)}
                 >
                 </input>
                 <ReactQuill
                     value={this.state.body}
-                    onChange={this.updateBody}>
-
+                    onChange={this.updateBody}
+                    modules={EditorComponent.modules}
+                    formats={EditorComponent.formats}>
                 </ReactQuill>
             </div>
         );
     }
 }
+
+//Editor configuration
+EditorComponent.modules = {
+    toolbar: [
+        [{'header': '1'}, {'header': '2'}, {'font': []}],
+        [{size: []}],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{'list': 'ordered'}, {'list': 'bullet'},
+            {'indent': '-1'}, {'indent': '+1'}],
+        ['link', 'image'],
+        ['clean']
+    ],
+    clipboard: {
+        // toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+    }
+}
+
+EditorComponent.formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+]
 
 export default withStyles(styles)(EditorComponent);
