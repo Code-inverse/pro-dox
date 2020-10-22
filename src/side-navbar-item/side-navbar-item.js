@@ -12,14 +12,13 @@ class SideNavbarItemComponent extends Component {
         const {_index, _doc, selectedDocIndex, classes} = this.props;
 
         return (
-            <div key={_index}>
+            <div key={_index} onClick={()=>this.selectDocHandler(_doc, _index)}>
                 <ListItem
                     className={classes.listItem}
                     selected={selectedDocIndex === _index}
                     alignItems='flex-start'
                 >
-                    <div className={classes.textSection}
-                         onClick={()=>this.selectDocHandler(_doc, _index)}>
+                    <div className={classes.textSection}>
                         <ListItemText
                             primary={_doc.title}
                             secondary={removeHTMLTags(_doc.body.substring(0, 35)) + '...'}

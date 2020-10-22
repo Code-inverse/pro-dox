@@ -55,7 +55,15 @@ class App extends React.Component {
                     deleteDoc={this.deleteDocHandler}
                     newDoc={this.newDocHandler}
                 />
-                <EditorComponent/>
+                {
+                    this.state.selectedDoc ?
+                        <EditorComponent
+                            selectedDoc={this.state.selectedDoc}
+                            selectedDocIndex={this.state.selectedDocIndex}
+                            documents={this.state.documents}
+                        />
+                        : null
+                }
             </div>
         );
     }

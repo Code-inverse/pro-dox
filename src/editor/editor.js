@@ -12,9 +12,37 @@ class EditorComponent extends Component {
         id: ''
     };
 
+    updateBody = async (val) => {
+        await this.setState({text: val});
+        this.update();
+    };
+    //debouncing here to update DB at a "5 seconds" delay after user stops typing
+    update = debounce(() => {
+        //TODO: Come back later here
+        console.log('updating DB');
+    }, 5000);
+
+    componentDidMount = () => {
+        this.setState({
+            text: this.props.selectedDoc.body,
+            title: this.props.selectedDoc.title,
+            id: this.props.selectedDoc.id
+        });
+    }
+
+    componentDidUpdate =() => {
+        if (this.props.selectedDoc.id !== this.state.id){
+            this.setState({
+                text: this.props.selectedDoc.body,
+                title: this.props.selectedDoc.title,
+                id: this.props.selectedDoc.id
+            });
+        }
+    }
+
     render() {
 
-        const {classes} = this.props;
+        const {classes, documents, selectedDoc, selectedDocIndex} = this.props;
 
         return (
             <div className={classes.editorContainer}>
@@ -26,15 +54,6 @@ class EditorComponent extends Component {
             </div>
         );
     }
-    updateBody= async (val)=> {
-        await this.setState({text:val});
-        this.update();
-    };
-    //debouncing here to update DB at a 5 s delay after user stops typing
-    update = debounce(()=>{
-        //TODO: Come back later here
-        console.log('updating DB');
-    },5000);
 }
 
 export default withStyles(styles)(EditorComponent);
