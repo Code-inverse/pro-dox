@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#excluding index.js to hide firebase api keys
+# will be including a sample of index.js named index_sample.js
+
+/src/index.js
